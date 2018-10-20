@@ -52,7 +52,7 @@ namespace AutoDeployClient.Utils
             }
             catch(Exception err)
             {
-                LogManager.PrintLogMessage("FileManager", "", "cannot extract file: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                LogManager.PrintLogMessage("FileManager", "ExtractZipFile", "cannot extract file: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
                 extractPath = null;
             }
             return extractPath;
