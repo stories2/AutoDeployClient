@@ -998,6 +998,7 @@
     <TypeScriptCompile Include="PageScripts\App.ts" />
     <TypeScriptCompile Include="PageScripts\AppDefine.ts" />
     <TypeScriptCompile Include="PageScripts\AppService.ts" />
+    <TypeScriptCompile Include="PageScripts\Controllers\Shared\Toolbar.ts" />
     <TypeScriptCompile Include="PageScripts\Controllers\Subscribe\Subscribe.ts" />
   </ItemGroup>
   <ItemGroup>
