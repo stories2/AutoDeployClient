@@ -6,6 +6,6 @@
 
 <div ng-controller="RegisterController" ng-layout="column" ng-init="onInit()">
     <div ng-layout="row" ng-if="isBrowserSupportPushService">
-        <md-button md-no-ink ng-class="md-primary" ng-click="btnOnClickRegister()">Register auto deploy service</md-button>
+        <md-button md-no-ink ng-class="md-primary" ng-click="btnOnClickRegister()" ng-disabled="!isAlreadySubscribed">Register auto deploy service</md-button>
     </div>
 </div>
