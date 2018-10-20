@@ -19,6 +19,8 @@ namespace AutoDeployClient.Settings
             LOG_LEVEL_INFO_STR = "I",
             LOG_LEVEL_DEBUG_STR = "D",
             LOG_LEVEL_WARN_STR = "W",
-            LOG_LEVEL_ERROR_STR = "E";
+            LOG_LEVEL_ERROR_STR = "E",
+            
+            DIR_UPDATE_PATH = "~/Content/Update/";
     }
 }
