@@ -58,5 +58,20 @@ namespace AutoDeployClient.Utils
             }
             return extractPath;
         }
+
+        public static bool MoveFolderToDest(String originFolder, String destFolder)
+        {
+            try
+            {
+                Directory.Move(originFolder, destFolder);
+                LogManager.PrintLogMessage("FileManager", "MoveFolderToDest", "folder moved " + originFolder + " -> " + destFolder, DefineManager.LOG_LEVEL_DEBUG);
+                return true;
+            }
+            catch(Exception err)
+            {
+                LogManager.PrintLogMessage("FileManager", "MoveFolderToDest", "cannot move folder: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                return false;
+            }
+        }
     }
 }

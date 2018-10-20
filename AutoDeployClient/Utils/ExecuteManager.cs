@@ -25,6 +25,7 @@ namespace AutoDeployClient.Utils
                 {
                     case DefineManager.EXECUTE_ORDER_AUTO_UPDATE:
                         RutineAutoUpdate();
+                        success = true;
                         break;
                     default:
                         success = false;
@@ -48,7 +49,16 @@ namespace AutoDeployClient.Utils
                 extractedFilePath = FileManager.ExtractZipFile(downloadedFilePath);
                 if(extractedFilePath != null)
                 {
-                    
+                    if(FileManager.MoveFolderToDest(extractedFilePath, pushMsgModel.updateTargetPath))
+                    {
+                        LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "auto update success", DefineManager.LOG_LEVEL_INFO);
+                        return;
+                    }
+                    else
+                    {
+                        LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "move folder failed", DefineManager.LOG_LEVEL_WARN);
+                        throw new Exception();
+                    }
                 }
                 else
                 {
