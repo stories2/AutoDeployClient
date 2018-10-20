@@ -140,10 +140,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\RelayController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PushMsgModel.cs" />
+    <Compile Include="Models\SimplePushMsgModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +166,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="PageScripts\AppServiceWorker.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -984,7 +988,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -998,7 +1001,6 @@
     <TypeScriptCompile Include="PageScripts\App.ts" />
     <TypeScriptCompile Include="PageScripts\AppDefine.ts" />
     <TypeScriptCompile Include="PageScripts\AppService.ts" />
-    <TypeScriptCompile Include="PageScripts\AppServiceWorker.ts" />
     <TypeScriptCompile Include="PageScripts\Controllers\Shared\Toolbar.ts" />
     <TypeScriptCompile Include="PageScripts\Controllers\Subscribe\Register.ts" />
   </ItemGroup>
