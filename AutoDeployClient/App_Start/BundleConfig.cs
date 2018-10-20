@@ -32,7 +32,7 @@ namespace AutoDeployClient
                       "~/Scripts/angular-file-upload.js",
                       "~/Scripts/*.js",
                       "~/PageScripts/*.js"
-                ));
+                ).IncludeDirectory("~/PageScripts/Controllers", "*.js", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/*.css"));

@@ -8,8 +8,7 @@ namespace AutoDeployClient.Controllers
 {
     public class SubscribeController : Controller
     {
-        // GET: Subscribe
-        public ActionResult Index()
+        public ActionResult Register()
         {
             return View();
         }

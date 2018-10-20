@@ -983,8 +983,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_BigTemplateLayout.cshtml" />
-    <Content Include="Views\Subscribe\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Subscribe\Subscribe.cshtml" />
+    <Content Include="Views\Subscribe\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1000,6 +1001,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="PageScripts\App.ts" />
+    <TypeScriptCompile Include="PageScripts\AppDefine.ts" />
+    <TypeScriptCompile Include="PageScripts\AppService.ts" />
+    <TypeScriptCompile Include="PageScripts\Controllers\Subscribe\Subscribe.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
