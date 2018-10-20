@@ -9,23 +9,26 @@ namespace AutoDeployClient.Utils
 {
     public class FileManager
     {
-        public static String DownloadWebFile(String downloadFilePath, String saveFilePath)
+        public static String DownloadWebFile(String downloadFilePath, String saveFilePath, String fileType)
         {
-            String saveFileAs = null;
+            String absoluteSavePath = HttpContext.Current.Server.MapPath(saveFilePath);
+            String fileName = Guid.NewGuid().ToString() + "." + fileType;
+            String relativeSavePath = saveFilePath;
             try
             {
-                saveFileAs = saveFilePath + Guid.NewGuid().ToString();
+                absoluteSavePath = absoluteSavePath + fileName;
+                relativeSavePath = relativeSavePath + fileName;
                 using (var client = new WebClient())
                 {
-                    client.DownloadFile(downloadFilePath, saveFileAs);
+                    client.DownloadFile(downloadFilePath, absoluteSavePath);
                 }
-                LogManager.PrintLogMessage("FileManager", "DownloadWebFile", "file downloaded at: " + saveFileAs, DefineManager.LOG_LEVEL_DEBUG);
+                LogManager.PrintLogMessage("FileManager", "DownloadWebFile", "file downloaded at: " + relativeSavePath, DefineManager.LOG_LEVEL_DEBUG);
             }
             catch(Exception err)
             {
                 LogManager.PrintLogMessage("FileManager", "DownloadWebFile", "cannot download file: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
             }
-            return saveFileAs;
+            return relativeSavePath;
         }
     }
 }

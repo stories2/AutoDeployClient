@@ -12,7 +12,9 @@ namespace AutoDeployClient.Settings
             LOG_LEVEL_INFO = 1,
             LOG_LEVEL_DEBUG = 2,
             LOG_LEVEL_WARN = 3,
-            LOG_LEVEL_ERROR = 4;
+            LOG_LEVEL_ERROR = 4,
+            
+            EXECUTE_ORDER_AUTO_UPDATE = 1;
 
         public static readonly String
             LOG_LEVEL_VERBOSE_STR = "V",

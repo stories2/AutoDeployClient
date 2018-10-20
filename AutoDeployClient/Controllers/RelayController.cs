@@ -16,18 +16,16 @@ namespace AutoDeployClient.Controllers
         [HttpPost]
         public IHttpActionResult PassPushMsg([FromBody] PushMsgModel pushMsgModel)
         {
-            DebugPushMsgModel(pushMsgModel);
-            return Json(new { success = true});
+            bool processResult = false;
+            processResult = ExecuteOrder(pushMsgModel);
+            return Json(new { success = processResult });
         }
 
-        void DebugPushMsgModel(PushMsgModel pushMsgModel)
+        bool ExecuteOrder(PushMsgModel pushMsgModel)
         {
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> orderType: " + pushMsgModel.orderType, DefineManager.LOG_LEVEL_DEBUG);
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> downloadUrl: " + pushMsgModel.downloadUrl, DefineManager.LOG_LEVEL_DEBUG);
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> updateTargetPath: " + pushMsgModel.updateTargetPath, DefineManager.LOG_LEVEL_DEBUG);
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> msg: " + pushMsgModel.msg, DefineManager.LOG_LEVEL_DEBUG);
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> version: " + pushMsgModel.version, DefineManager.LOG_LEVEL_DEBUG);
-            LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> callbackUrl: " + pushMsgModel.callbackUrl, DefineManager.LOG_LEVEL_DEBUG);
+            ExecuteManager executeManager = new ExecuteManager();
+            executeManager.pushMsgModel = pushMsgModel;
+            return executeManager.Execute();
         }
     }
 }

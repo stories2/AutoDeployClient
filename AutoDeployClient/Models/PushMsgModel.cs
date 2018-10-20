@@ -13,5 +13,6 @@ namespace AutoDeployClient.Models
         public String msg { get; set; }
         public String version { get; set; }
         public String callbackUrl { get; set; }
+        public String fileType { get; set; }
     }
 }
