@@ -984,7 +984,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_BigTemplateLayout.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Subscribe\Subscribe.cshtml" />
     <Content Include="Views\Subscribe\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
