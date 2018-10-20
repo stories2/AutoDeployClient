@@ -12,5 +12,6 @@ namespace AutoDeployClient.Models
         public String updateTargetPath { get; set; }
         public String msg { get; set; }
         public String version { get; set; }
+        public String callbackUrl { get; set; }
     }
 }
