@@ -24,7 +24,14 @@ namespace AutoDeployClient
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                      "~/Scripts/*.js"
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-route.js",
+                      "~/Scripts/angular-animate.js",
+                      "~/Scripts/angular-aria.js",
+                      "~/Scripts/angular-material.js",
+                      "~/Scripts/angular-file-upload.js",
+                      "~/Scripts/*.js",
+                      "~/PageScripts/*.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
