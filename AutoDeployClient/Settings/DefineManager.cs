@@ -25,6 +25,8 @@ namespace AutoDeployClient.Settings
             
             DIR_UPDATE_PATH = "~/Content/Update/",
             
-            DIR_EXTRACT_PATH = "~/Content/Extract/";
+            DIR_EXTRACT_PATH = "~/Content/Extract/",
+            
+            DIR_MOVE_FOLDER_BATCH_PATH = "~/Content/Executeable/CopyFiles.bat";
     }
 }

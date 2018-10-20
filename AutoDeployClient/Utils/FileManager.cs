@@ -2,6 +2,7 @@
 using Ionic.Zip;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -72,6 +73,51 @@ namespace AutoDeployClient.Utils
                 LogManager.PrintLogMessage("FileManager", "MoveFolderToDest", "cannot move folder: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
                 return false;
             }
+        }
+
+        public static bool CallSubProcess(String subProcessName, String arguments, String userName, String password)
+        {
+            try
+            {
+                String subProcessAbsolutePath = HttpContext.Current.Server.MapPath(subProcessName);
+                var secureStr = new System.Security.SecureString();
+                foreach(char secureChar in password)
+                {
+                    secureStr.AppendChar(secureChar);
+                }
+                LogManager.PrintLogMessage("FileManager", "CallSubProcess", "call sub process: " + subProcessName + " options: " + arguments, DefineManager.LOG_LEVEL_DEBUG);
+                var psi = new ProcessStartInfo
+                {
+                    FileName = subProcessAbsolutePath,
+                    UserName = userName,
+                    Password = secureStr,
+                    CreateNoWindow = true,
+                    Arguments = arguments,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    //Verb = "runas",
+                    UseShellExecute = false,
+                    WorkingDirectory = Environment.CurrentDirectory,
+                };
+                Process process = new Process();
+                process.StartInfo = psi;
+                process.Start();
+                process.WaitForExit();
+                String output = process.StandardOutput.ReadToEnd();
+                String errorOutput = process.StandardError.ReadToEnd();
+                if(errorOutput != null)
+                {
+                    LogManager.PrintLogMessage("FileManager", "CallSubProcess", "error accepted: " + errorOutput, DefineManager.LOG_LEVEL_WARN);
+                    throw new Exception();
+                }
+                LogManager.PrintLogMessage("FileManager", "CallSubProcess", "sub process done", DefineManager.LOG_LEVEL_INFO);
+                return true;
+            }
+            catch(Exception err)
+            {
+                LogManager.PrintLogMessage("FileManager", "CallSubProcess", "something wrong with sub process: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+            }
+            return false;
         }
     }
 }

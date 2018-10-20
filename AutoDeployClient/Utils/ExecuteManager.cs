@@ -49,16 +49,18 @@ namespace AutoDeployClient.Utils
                 extractedFilePath = FileManager.ExtractZipFile(downloadedFilePath);
                 if(extractedFilePath != null)
                 {
-                    if(FileManager.MoveFolderToDest(extractedFilePath, pushMsgModel.updateTargetPath))
-                    {
-                        LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "auto update success", DefineManager.LOG_LEVEL_INFO);
-                        return;
-                    }
-                    else
-                    {
-                        LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "move folder failed", DefineManager.LOG_LEVEL_WARN);
-                        throw new Exception();
-                    }
+                    String moveFolderArguments = extractedFilePath + " " + pushMsgModel.updateTargetPath;
+                    FileManager.CallSubProcess(DefineManager.DIR_MOVE_FOLDER_BATCH_PATH, moveFolderArguments, pushMsgModel.clientSideComputerUserName, pushMsgModel.clientSideComputerPassword);
+                    //if(FileManager.MoveFolderToDest(extractedFilePath, pushMsgModel.updateTargetPath))
+                    //{
+                    //    LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "auto update success", DefineManager.LOG_LEVEL_INFO);
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //    LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "move folder failed", DefineManager.LOG_LEVEL_WARN);
+                    //    throw new Exception();
+                    //}
                 }
                 else
                 {
