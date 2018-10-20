@@ -49,6 +49,7 @@ namespace AutoDeployClient.Utils
                 {
                     zipFile.ExtractAll(extractPath, ExtractExistingFileAction.DoNotOverwrite);
                 }
+                LogManager.PrintLogMessage("FileManager", "ExtractZipFile", "file extracted at: " + extractPath, DefineManager.LOG_LEVEL_DEBUG);
             }
             catch(Exception err)
             {
