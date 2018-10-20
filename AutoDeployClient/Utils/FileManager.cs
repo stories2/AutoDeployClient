@@ -1,6 +1,8 @@
 ﻿using AutoDeployClient.Settings;
+using Ionic.Zip;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -27,8 +29,33 @@ namespace AutoDeployClient.Utils
             catch(Exception err)
             {
                 LogManager.PrintLogMessage("FileManager", "DownloadWebFile", "cannot download file: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                relativeSavePath = null;
             }
             return relativeSavePath;
+        }
+
+        public static String ExtractZipFile(String relativeFilePath)
+        {
+            String folderName = Guid.NewGuid().ToString();
+            String extractPath = HttpContext.Current.Server.MapPath(DefineManager.DIR_EXTRACT_PATH) + folderName;
+            String absoluteFileDownloadedPath = HttpContext.Current.Server.MapPath(relativeFilePath);
+            try
+            {
+                if(!Directory.Exists(extractPath))
+                {
+                    Directory.CreateDirectory(extractPath);
+                }
+                using (ZipFile zipFile = ZipFile.Read(absoluteFileDownloadedPath))
+                {
+                    zipFile.ExtractAll(extractPath, ExtractExistingFileAction.DoNotOverwrite);
+                }
+            }
+            catch(Exception err)
+            {
+                LogManager.PrintLogMessage("FileManager", "", "cannot extract file: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                extractPath = null;
+            }
+            return extractPath;
         }
     }
 }

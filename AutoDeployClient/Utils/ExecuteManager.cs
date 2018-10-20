@@ -42,9 +42,24 @@ namespace AutoDeployClient.Utils
         void RutineAutoUpdate()
         {
             String downloadedFilePath = FileManager.DownloadWebFile(pushMsgModel.downloadUrl, DefineManager.DIR_UPDATE_PATH, pushMsgModel.fileType);
+            String extractedFilePath = null;
             if(downloadedFilePath != null)
             {
-
+                extractedFilePath = FileManager.ExtractZipFile(downloadedFilePath);
+                if(extractedFilePath != null)
+                {
+                    
+                }
+                else
+                {
+                    LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "extract file failed", DefineManager.LOG_LEVEL_WARN);
+                    throw new Exception();
+                }
+            }
+            else
+            {
+                LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "download file failed", DefineManager.LOG_LEVEL_WARN);
+                throw new Exception();
             }
         }
 

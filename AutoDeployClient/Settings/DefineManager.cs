@@ -23,6 +23,8 @@ namespace AutoDeployClient.Settings
             LOG_LEVEL_WARN_STR = "W",
             LOG_LEVEL_ERROR_STR = "E",
             
-            DIR_UPDATE_PATH = "~/Content/Update/";
+            DIR_UPDATE_PATH = "~/Content/Update/",
+            
+            DIR_EXTRACT_PATH = "~/Content/Extract/";
     }
 }
