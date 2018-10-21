@@ -95,22 +95,25 @@ namespace AutoDeployClient.Utils
                     Arguments = arguments,
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
-                    //Verb = "runas",
+                    Verb = "runas",
                     UseShellExecute = false,
                     WorkingDirectory = Environment.CurrentDirectory,
                 };
-                Process process = new Process();
-                process.StartInfo = psi;
-                process.Start();
-                process.WaitForExit();
-                String output = process.StandardOutput.ReadToEnd();
-                String errorOutput = process.StandardError.ReadToEnd();
-                if(errorOutput != null)
+                using (Process process = new Process())
                 {
-                    LogManager.PrintLogMessage("FileManager", "CallSubProcess", "error accepted: " + errorOutput, DefineManager.LOG_LEVEL_WARN);
-                    throw new Exception();
+                    process.StartInfo = psi;
+                    process.Start();
+                    LogManager.PrintLogMessage("FileManager", "CallSubProcess", "sub process started", DefineManager.LOG_LEVEL_INFO);
                 }
-                LogManager.PrintLogMessage("FileManager", "CallSubProcess", "sub process done", DefineManager.LOG_LEVEL_INFO);
+                //process.WaitForExit();
+                //String output = process.StandardOutput.ReadToEnd();
+                //String errorOutput = process.StandardError.ReadToEnd();
+                //if(errorOutput != null)
+                //{
+                //    LogManager.PrintLogMessage("FileManager", "CallSubProcess", "error accepted: " + errorOutput, DefineManager.LOG_LEVEL_WARN);
+                //    throw new Exception();
+                //}
+                
                 return true;
             }
             catch(Exception err)
