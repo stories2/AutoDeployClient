@@ -31,11 +31,17 @@ namespace AutoDeployClient.Utils
                     context.ADC_PushData.Add(adcPushData);
                     context.SaveChanges();
 
+                    newProcessId = adcPushData.ADC_Index;
+
                     ADC_Status adcStatus = new ADC_Status();
+                    adcStatus.ADC_Index = newProcessId;
+                    adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_DEFAULT;
+                    adcStatus.ADC_UpdateDateTime = DateTime.Now;
+
                     context.ADC_Status.Add(adcStatus);
                     context.SaveChanges();
 
-                    newProcessId = adcPushData.ADC_Index;
+                    tran.Commit();
 
                     LogManager.PrintLogMessage("ADCManager", "CreateNewProcess", "process created, id: " + newProcessId, DefineManager.LOG_LEVEL_DEBUG);
                 }
@@ -61,6 +67,7 @@ namespace AutoDeployClient.Utils
                     selectedADCStatus.ADC_UpdateDateTime = DateTime.Now;
 
                     context.SaveChanges();
+                    tran.Commit();
 
                     LogManager.PrintLogMessage("ADCManager", "UpdateCurrentProcessStatus", "process status updated, status: " + adcStatus.ADC_StatusCode, DefineManager.LOG_LEVEL_DEBUG);
                 }
