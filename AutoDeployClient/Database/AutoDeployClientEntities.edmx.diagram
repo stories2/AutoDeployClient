@@ -5,7 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="97e849e810ff40fbb2ae0cdcf9fbbf74" Name="Diagram1">
-        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_PushData" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_PushData" Width="2" PointX="1.375" PointY="0.5" />
+        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_Status" Width="2.25" PointX="4.75" PointY="1.125" />
+        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_StatusCode" Width="2.375" PointX="8.25" PointY="1.875" />
+        <AssociationConnector Association="AutoDeployClientModel.FK_ADC_Status_ADC_Status" />
+        <AssociationConnector Association="AutoDeployClientModel.FK_ADC_Status_ADC_StatusCode" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

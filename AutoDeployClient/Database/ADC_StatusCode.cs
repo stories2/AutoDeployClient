@@ -12,18 +12,18 @@ namespace AutoDeployClient.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ADC_PushData
+    public partial class ADC_StatusCode
     {
-        public int ADC_Index { get; set; }
-        public Nullable<int> ADC_OrderType { get; set; }
-        public string ADC_DownloadUrl { get; set; }
-        public string ADC_DownloadedPath { get; set; }
-        public string ADC_ExtractedPath { get; set; }
-        public string ADC_UpdateTargetPath { get; set; }
-        public string ADC_PushMsg { get; set; }
-        public string ADC_CallbackUrl { get; set; }
-        public string ADC_FileType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ADC_StatusCode()
+        {
+            this.ADC_Status = new HashSet<ADC_Status>();
+        }
     
-        public virtual ADC_Status ADC_Status { get; set; }
+        public int ADC_ProcessStatus { get; set; }
+        public string ADC_Descript { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ADC_Status> ADC_Status { get; set; }
     }
 }

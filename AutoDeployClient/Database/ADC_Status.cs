@@ -12,18 +12,13 @@ namespace AutoDeployClient.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ADC_PushData
+    public partial class ADC_Status
     {
         public int ADC_Index { get; set; }
-        public Nullable<int> ADC_OrderType { get; set; }
-        public string ADC_DownloadUrl { get; set; }
-        public string ADC_DownloadedPath { get; set; }
-        public string ADC_ExtractedPath { get; set; }
-        public string ADC_UpdateTargetPath { get; set; }
-        public string ADC_PushMsg { get; set; }
-        public string ADC_CallbackUrl { get; set; }
-        public string ADC_FileType { get; set; }
+        public int ADC_ProcessStatus { get; set; }
+        public string ADC_ProcessMsg { get; set; }
     
-        public virtual ADC_Status ADC_Status { get; set; }
+        public virtual ADC_PushData ADC_PushData { get; set; }
+        public virtual ADC_StatusCode ADC_StatusCode { get; set; }
     }
 }

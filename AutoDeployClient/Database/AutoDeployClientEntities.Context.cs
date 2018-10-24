@@ -26,5 +26,7 @@ namespace AutoDeployClient.Database
         }
     
         public virtual DbSet<ADC_PushData> ADC_PushData { get; set; }
+        public virtual DbSet<ADC_Status> ADC_Status { get; set; }
+        public virtual DbSet<ADC_StatusCode> ADC_StatusCode { get; set; }
     }
 }
