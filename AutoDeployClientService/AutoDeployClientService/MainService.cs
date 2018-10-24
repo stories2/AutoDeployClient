@@ -63,7 +63,7 @@ namespace AutoDeployClientService
         private void SetTimer()
         {
             refreshTimer = new Timer();
-            refreshTimer.Interval = DefineManager.REFRESH_TIME_10_SEC;
+            refreshTimer.Interval = DefineManager.REFRESH_TIME_5_MIN;
             refreshTimer.Elapsed += TimerCallback;
             refreshTimer.Start();
 
