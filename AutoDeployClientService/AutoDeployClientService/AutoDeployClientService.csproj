@@ -98,6 +98,7 @@
     <Compile Include="Settings\DefineManager.cs" />
     <Compile Include="Utils\ADCManager.cs" />
     <Compile Include="Utils\AutoDeployRoutineManager.cs" />
+    <Compile Include="Utils\FileManager.cs" />
     <Compile Include="Utils\LogManager.cs" />
   </ItemGroup>
   <ItemGroup>

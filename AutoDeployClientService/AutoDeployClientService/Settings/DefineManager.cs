@@ -21,6 +21,9 @@ namespace AutoDeployClientService.Settings
             ORDER_TYPE_NORMAL_DEPLOY = 1,
 
             STATUS_CODE_DEPLOY_FILE_IS_READY = 202,
+            STATUS_CODE_PUBLISHING = 300,
+            STATUS_CODE_PUBLISH_DONE = 301,
+            STATUS_CODE_PUBLISH_ERROR = 350,
 
             ZERO = 0;
 
