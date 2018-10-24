@@ -12,6 +12,22 @@ namespace AutoDeployClientService.Utils
     {
         public LogManager logManager { get; set; }
 
+        public void OpenDBTest()
+        {
+            using (AutoDeployClientEntities context = new AutoDeployClientEntities())
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {                    
+                    logManager.PrintLogMessage("ADCManager", "OpenDBTest", "open db test ok", System.Diagnostics.EventLogEntryType.Information);
+                }
+                catch (Exception err)
+                {
+                    logManager.PrintLogMessage("ADCManager", "OpenDBTest", "open db test failed: " + err.Message, System.Diagnostics.EventLogEntryType.Error);
+                }
+            }
+        }
+
         public List<ADC_PushData> GetReadyForDeployFileList()
         {
             List<ADC_PushData> readyForDeployFileList = null;

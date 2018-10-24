@@ -46,11 +46,23 @@ namespace AutoDeployClientService
 
         private void OnInit()
         {
-            logManager = new LogManager();
-            adcManager = new ADCManager();
 
-            logManager.eventLog = this.EventLog;
-            adcManager.logManager = logManager;
+            try
+            {
+                logManager = new LogManager();
+                adcManager = new ADCManager();
+
+                logManager.eventLog = this.EventLog;
+                adcManager.logManager = logManager;
+
+                adcManager.OpenDBTest();
+
+                logManager.PrintLogMessage("MainService", "OnInit", "init ok, build ver: " + DefineManager.BUILD_VERSION, EventLogEntryType.SuccessAudit);
+            }
+            catch(Exception err)
+            {
+                logManager.PrintLogMessage("MainService", "OnInit", "init failed: " + err.Message, EventLogEntryType.Error);
+            }
         }
 
         protected override void OnStart(string[] args)
