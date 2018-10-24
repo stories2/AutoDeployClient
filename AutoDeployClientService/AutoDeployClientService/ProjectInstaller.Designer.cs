@@ -40,7 +40,7 @@
             // serviceInstaller1
             // 
             this.serviceInstaller1.DisplayName = "ADC Service";
-            this.serviceInstaller1.ServiceName = "MainService";
+            this.serviceInstaller1.ServiceName = "ADC Service";
             // 
             // ProjectInstaller
             // 
