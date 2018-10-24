@@ -10,8 +10,10 @@ namespace AutoDeployClient.Utils
 {
     public class ADCManager
     {
-        public void CreateNewProcess(PushMsgModel pushMsgModel)
+        public int CreateNewProcess(PushMsgModel pushMsgModel)
         {
+            int newProcessId = DefineManager.NOT_AVAILABLE;
+
             using (AutoDeployClientEntities context = new AutoDeployClientEntities())
             using (var tran = context.Database.BeginTransaction())
             {
@@ -32,6 +34,10 @@ namespace AutoDeployClient.Utils
                     ADC_Status adcStatus = new ADC_Status();
                     context.ADC_Status.Add(adcStatus);
                     context.SaveChanges();
+
+                    newProcessId = adcPushData.ADC_Index;
+
+                    LogManager.PrintLogMessage("ADCManager", "CreateNewProcess", "process created, id: " + newProcessId, DefineManager.LOG_LEVEL_DEBUG);
                 }
                 catch (Exception err)
                 {
@@ -39,6 +45,7 @@ namespace AutoDeployClient.Utils
                     LogManager.PrintLogMessage("ADCManager", "CreateNewProcess", "cannot create new process: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
                 }
             }
+            return newProcessId;
         }
 
         public void UpdateCurrentProcessStatus(ADC_Status adcStatus)
@@ -54,6 +61,8 @@ namespace AutoDeployClient.Utils
                     selectedADCStatus.ADC_UpdateDateTime = DateTime.Now;
 
                     context.SaveChanges();
+
+                    LogManager.PrintLogMessage("ADCManager", "UpdateCurrentProcessStatus", "process status updated, status: " + adcStatus.ADC_StatusCode, DefineManager.LOG_LEVEL_DEBUG);
                 }
                 catch (Exception err)
                 {

@@ -66,6 +66,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -146,6 +148,30 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\RelayController.cs" />
     <Compile Include="Controllers\SubscribeController.cs" />
+    <Compile Include="Database\ADC_PushData.cs">
+      <DependentUpon>AutoDeployClientEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ADC_Status.cs">
+      <DependentUpon>AutoDeployClientEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ADC_StatusCode.cs">
+      <DependentUpon>AutoDeployClientEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AutoDeployClientEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoDeployClientEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AutoDeployClientEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoDeployClientEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AutoDeployClientEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoDeployClientEntities.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,6 +179,7 @@
     <Compile Include="Models\SimplePushMsgModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\DefineManager.cs" />
+    <Compile Include="Utils\ADCManager.cs" />
     <Compile Include="Utils\ExecuteManager.cs" />
     <Compile Include="Utils\FileManager.cs" />
     <Compile Include="Utils\LogManager.cs" />
@@ -170,6 +197,16 @@
     <Content Include="Content\Executeable\CopyFiles.exe" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Database\AutoDeployClientEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AutoDeployClientEntities.edmx</DependentUpon>
+      <LastGenOutput>AutoDeployClientEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\AutoDeployClientEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AutoDeployClientEntities.edmx</DependentUpon>
+      <LastGenOutput>AutoDeployClientEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -230,6 +267,13 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Executeable\CopyFiles.bat" />
+    <EntityDeploy Include="Database\AutoDeployClientEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AutoDeployClientEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Database\AutoDeployClientEntities.edmx.diagram">
+      <DependentUpon>AutoDeployClientEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\AutoDeployClient-DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\AutoDeployClientProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1020,6 +1064,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using AutoDeployClient.Models;
+﻿using AutoDeployClient.Database;
+using AutoDeployClient.Models;
 using AutoDeployClient.Settings;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,11 @@ namespace AutoDeployClient.Utils
     public class ExecuteManager
     {
         public PushMsgModel pushMsgModel { get; set; }
+        public ADCManager adcManager { get; set; }
+        public ADC_Status adcStatus { get; set; }
+
         public ExecuteManager()
         {
-
         }
 
         public bool Execute()
@@ -27,28 +30,40 @@ namespace AutoDeployClient.Utils
                         RutineAutoUpdate();
                         success = true;
                         break;
+
                     default:
                         success = false;
                         break;
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
+                adcStatus.ADC_ProcessMsg = err.Message;
+                adcManager.UpdateCurrentProcessStatus(adcStatus);
                 LogManager.PrintLogMessage("ExecuteManager", "Execute", "cannot execute order: " + err.Message);
             }
 
             return success;
         }
 
-        void RutineAutoUpdate()
+        private void RutineAutoUpdate()
         {
+            adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_DOWNLOADING_DEPLOY_FILE;
+            adcManager.UpdateCurrentProcessStatus(adcStatus);
+
             String downloadedFilePath = FileManager.DownloadWebFile(pushMsgModel.downloadUrl, DefineManager.DIR_UPDATE_PATH, pushMsgModel.fileType);
             String extractedFilePath = null;
-            if(downloadedFilePath != null)
+            if (downloadedFilePath != null)
             {
+                adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_EXTRACTING_DEPLOY_FILE;
+                adcManager.UpdateCurrentProcessStatus(adcStatus);
+
                 extractedFilePath = FileManager.ExtractZipFile(downloadedFilePath);
-                if(extractedFilePath != null)
+                if (extractedFilePath != null)
                 {
+                    adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_DEPLOY_FILE_IS_READY;
+                    adcManager.UpdateCurrentProcessStatus(adcStatus);
+
                     String moveFolderArguments = extractedFilePath + " " + pushMsgModel.updateTargetPath;
                     FileManager.CallSubProcess(DefineManager.DIR_MOVE_FOLDER_BATCH_PATH, moveFolderArguments, pushMsgModel.clientSideComputerUserName, pushMsgModel.clientSideComputerPassword);
                     //if(FileManager.MoveFolderToDest(extractedFilePath, pushMsgModel.updateTargetPath))
@@ -64,18 +79,20 @@ namespace AutoDeployClient.Utils
                 }
                 else
                 {
+                    adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_ERROR_WHILE_EXTRACTING_DEPLOY_FILE;
                     LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "extract file failed", DefineManager.LOG_LEVEL_WARN);
                     throw new Exception();
                 }
             }
             else
             {
+                adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_ERROR_WHILE_DOWNLOADING_DEPLOY_FILE;
                 LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "download file failed", DefineManager.LOG_LEVEL_WARN);
                 throw new Exception();
             }
         }
 
-        void DebugPushMsgModel(PushMsgModel pushMsgModel)
+        private void DebugPushMsgModel(PushMsgModel pushMsgModel)
         {
             LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> orderType: " + pushMsgModel.orderType, DefineManager.LOG_LEVEL_DEBUG);
             LogManager.PrintLogMessage("RelayController", "DebugPushMsgModel", "push msg model -> downloadUrl: " + pushMsgModel.downloadUrl, DefineManager.LOG_LEVEL_DEBUG);

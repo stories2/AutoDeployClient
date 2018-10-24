@@ -1,4 +1,5 @@
-﻿using AutoDeployClient.Models;
+﻿using AutoDeployClient.Database;
+using AutoDeployClient.Models;
 using AutoDeployClient.Settings;
 using AutoDeployClient.Utils;
 using System;
@@ -21,10 +22,20 @@ namespace AutoDeployClient.Controllers
             return Json(new { success = processResult });
         }
 
-        bool ExecuteOrder(PushMsgModel pushMsgModel)
+        private bool ExecuteOrder(PushMsgModel pushMsgModel)
         {
+            ADC_Status adcStatus = new ADC_Status();
+            ADCManager adcManager = new ADCManager();
+            adcStatus.ADC_Index = adcManager.CreateNewProcess(pushMsgModel);
+            adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_RECEIVE_PUSH_MSG;
+
             ExecuteManager executeManager = new ExecuteManager();
             executeManager.pushMsgModel = pushMsgModel;
+            executeManager.adcManager = adcManager;
+            executeManager.adcStatus = adcStatus;
+
+            adcManager.UpdateCurrentProcessStatus(adcStatus);
+
             return executeManager.Execute();
         }
     }
