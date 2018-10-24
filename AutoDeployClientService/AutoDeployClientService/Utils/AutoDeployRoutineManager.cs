@@ -28,19 +28,28 @@ namespace AutoDeployClientService.Utils
 
         private void RunDeployProcess(ADC_PushData adcPushData)
         {
+            ADC_Status adcStatus = adcManager.FindCurrentStatus(adcPushData);
             try
             {
-                adcPushData.ADC_Status.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISHING;
-                adcManager.UpdateCurrentProcessStatus(adcPushData.ADC_Status);
+                if (adcStatus == null)
+                {
+                    logManager.PrintLogMessage("AutoDeployRoutineManager", "RunDeployProcess", "cannot find adc status, process #" + adcPushData.ADC_Index, System.Diagnostics.EventLogEntryType.Warning);
+                    return;
+                }
+                adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISHING;
+                adcManager.UpdateCurrentProcessStatus(adcStatus);
 
-                adcPushData.ADC_Status.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_DONE;
-                adcManager.UpdateCurrentProcessStatus(adcPushData.ADC_Status);
+                adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_DONE;
+                adcManager.UpdateCurrentProcessStatus(adcStatus);
                 logManager.PrintLogMessage("AutoDeployRoutineManager", "RunDeployProcess", "deploy successfully #" + adcPushData.ADC_Index, System.Diagnostics.EventLogEntryType.SuccessAudit);
             }
             catch (Exception err)
             {
-                adcPushData.ADC_Status.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_ERROR;
-                adcPushData.ADC_Status.ADC_ProcessMsg = err.Message;
+                if (adcStatus != null)
+                {
+                    adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_ERROR;
+                    adcStatus.ADC_ProcessMsg = err.Message;
+                }
                 logManager.PrintLogMessage("AutoDeployRoutineManager", "RunDeployProcess", "cannot deploy current process #" + adcPushData.ADC_Index, System.Diagnostics.EventLogEntryType.Error);
             }
         }

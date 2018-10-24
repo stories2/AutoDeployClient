@@ -57,5 +57,29 @@ namespace AutoDeployClientService.Utils
                 }
             }
         }
+
+        public ADC_Status FindCurrentStatus(ADC_PushData adcPushData)
+        {
+            ADC_Status selectedADCStatus = null;
+            using (AutoDeployClientEntities context = new AutoDeployClientEntities())
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    selectedADCStatus = context.ADC_Status.Where(selectedADCStatusItem => selectedADCStatusItem.ADC_Index == adcPushData.ADC_Index).FirstOrDefault();
+
+                    context.SaveChanges();
+                    tran.Commit();
+
+                    logManager.PrintLogMessage("ADCManager", "FindCurrentStatus", "process status updated, status: " + selectedADCStatus.ADC_StatusCode, System.Diagnostics.EventLogEntryType.Information);
+                }
+                catch (Exception err)
+                {
+                    tran.Rollback();
+                    logManager.PrintLogMessage("ADCManager", "FindCurrentStatus", "cannot update process status: " + err.Message, System.Diagnostics.EventLogEntryType.Error);
+                }
+            }
+            return selectedADCStatus;
+        }
     }
 }
