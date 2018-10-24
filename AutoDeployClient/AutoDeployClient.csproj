@@ -230,6 +230,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Executeable\CopyFiles.bat" />
+    <None Include="Properties\PublishProfiles\AutoDeployClient-DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\AutoDeployClientProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
