@@ -9,7 +9,7 @@ namespace AutoDeployClientService.Utils
 {
     internal class FileManager
     {
-        private static void DirectoryCopy(string sourceDirName, string destDirName,
+        public static void DirectoryCopy(string sourceDirName, string destDirName,
                                       bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.

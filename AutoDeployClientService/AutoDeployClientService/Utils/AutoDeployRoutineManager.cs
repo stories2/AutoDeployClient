@@ -39,6 +39,8 @@ namespace AutoDeployClientService.Utils
                 adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISHING;
                 adcManager.UpdateCurrentProcessStatus(adcStatus);
 
+                FileManager.DirectoryCopy(adcPushData.ADC_ExtractedPath, adcPushData.ADC_UpdateTargetPath, true);
+
                 adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_DONE;
                 adcManager.UpdateCurrentProcessStatus(adcStatus);
                 logManager.PrintLogMessage("AutoDeployRoutineManager", "RunDeployProcess", "deploy successfully #" + adcPushData.ADC_Index, System.Diagnostics.EventLogEntryType.SuccessAudit);
