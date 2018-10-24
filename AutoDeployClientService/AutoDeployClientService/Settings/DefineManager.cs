@@ -13,7 +13,10 @@ namespace AutoDeployClientService.Settings
             LOG_LEVEL_INFO = 1,
             LOG_LEVEL_DEBUG = 2,
             LOG_LEVEL_WARN = 3,
-            LOG_LEVEL_ERROR = 4;
+            LOG_LEVEL_ERROR = 4,
+
+            REFRESH_TIME_10_SEC = 10 * 1000,
+            REFRESH_TIME_5_MIN = 5 * 60 * 1000;
 
         public static readonly String
             LOG_LEVEL_VERBOSE_STR = "V",
