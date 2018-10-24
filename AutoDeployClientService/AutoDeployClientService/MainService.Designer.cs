@@ -1,6 +1,6 @@
 ﻿namespace AutoDeployClientService
 {
-    partial class Service1
+    partial class MainService
     {
         /// <summary> 
         /// 필수 디자이너 변수입니다.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.ServiceName = "MainService";
         }
 
         #endregion
