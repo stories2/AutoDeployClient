@@ -14,7 +14,7 @@ namespace AutoDeployClient.Models
         public String version { get; set; }
         public String callbackUrl { get; set; }
         public String fileType { get; set; }
-        public String clientSideComputerUserName { get; set; }
-        public String clientSideComputerPassword { get; set; }
+        //public String clientSideComputerUserName { get; set; }
+        //public String clientSideComputerPassword { get; set; }
     }
 }
