@@ -64,8 +64,8 @@ namespace AutoDeployClient.Utils
                     adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_DEPLOY_FILE_IS_READY;
                     adcManager.UpdateCurrentProcessStatus(adcStatus);
 
-                    String moveFolderArguments = extractedFilePath + " " + pushMsgModel.updateTargetPath;
-                    FileManager.CallSubProcess(DefineManager.DIR_MOVE_FOLDER_BATCH_PATH, moveFolderArguments, pushMsgModel.clientSideComputerUserName, pushMsgModel.clientSideComputerPassword);
+                    //String moveFolderArguments = extractedFilePath + " " + pushMsgModel.updateTargetPath;
+                    //FileManager.CallSubProcess(DefineManager.DIR_MOVE_FOLDER_BATCH_PATH, moveFolderArguments, pushMsgModel.clientSideComputerUserName, pushMsgModel.clientSideComputerPassword);
                     //if(FileManager.MoveFolderToDest(extractedFilePath, pushMsgModel.updateTargetPath))
                     //{
                     //    LogManager.PrintLogMessage("ExecuteManager", "RutineAutoUpdate", "auto update success", DefineManager.LOG_LEVEL_INFO);
