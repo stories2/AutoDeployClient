@@ -17,6 +17,7 @@ namespace AutoDeployClient.Database
         public int ADC_Index { get; set; }
         public int ADC_ProcessStatus { get; set; }
         public string ADC_ProcessMsg { get; set; }
+        public System.DateTime ADC_UpdateDateTime { get; set; }
     
         public virtual ADC_PushData ADC_PushData { get; set; }
         public virtual ADC_StatusCode ADC_StatusCode { get; set; }
