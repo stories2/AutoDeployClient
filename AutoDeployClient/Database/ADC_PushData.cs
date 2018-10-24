@@ -21,6 +21,7 @@ namespace AutoDeployClient.Database
         public string ADC_ExtractedPath { get; set; }
         public string ADC_UpdateTargetPath { get; set; }
         public string ADC_PushMsg { get; set; }
+        public string ADC_Version { get; set; }
         public string ADC_CallbackUrl { get; set; }
         public string ADC_FileType { get; set; }
     

@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="97e849e810ff40fbb2ae0cdcf9fbbf74" Name="Diagram1">
-        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_PushData" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AutoDeployClientModel.ADC_PushData" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="AutoDeployClientModel.ADC_Status" Width="1.5" PointX="3" PointY="0.875" />
         <EntityTypeShape EntityType="AutoDeployClientModel.ADC_StatusCode" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="AutoDeployClientModel.FK_ADC_Status_ADC_Status" />

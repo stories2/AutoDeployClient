@@ -16,6 +16,7 @@
           <Property Name="ADC_ExtractedPath" Type="nvarchar" MaxLength="2000" />
           <Property Name="ADC_UpdateTargetPath" Type="nvarchar" MaxLength="2000" />
           <Property Name="ADC_PushMsg" Type="text" />
+          <Property Name="ADC_Version" Type="nvarchar" MaxLength="500" />
           <Property Name="ADC_CallbackUrl" Type="nvarchar" MaxLength="3000" />
           <Property Name="ADC_FileType" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -100,6 +101,7 @@
           <Property Name="ADC_ExtractedPath" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ADC_UpdateTargetPath" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ADC_PushMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADC_Version" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ADC_CallbackUrl" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
           <Property Name="ADC_FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ADC_Status" Relationship="AutoDeployClientModel.FK_ADC_Status_ADC_Status" FromRole="ADC_PushData" ToRole="ADC_Status" />
@@ -158,6 +160,7 @@
               <MappingFragment StoreEntitySet="ADC_PushData">
                 <ScalarProperty Name="ADC_FileType" ColumnName="ADC_FileType" />
                 <ScalarProperty Name="ADC_CallbackUrl" ColumnName="ADC_CallbackUrl" />
+                <ScalarProperty Name="ADC_Version" ColumnName="ADC_Version" />
                 <ScalarProperty Name="ADC_PushMsg" ColumnName="ADC_PushMsg" />
                 <ScalarProperty Name="ADC_UpdateTargetPath" ColumnName="ADC_UpdateTargetPath" />
                 <ScalarProperty Name="ADC_ExtractedPath" ColumnName="ADC_ExtractedPath" />
