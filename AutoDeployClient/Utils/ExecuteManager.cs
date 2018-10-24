@@ -61,6 +61,12 @@ namespace AutoDeployClient.Utils
                 extractedFilePath = FileManager.ExtractZipFile(downloadedFilePath);
                 if (extractedFilePath != null)
                 {
+                    ADC_PushData adcPushData = new ADC_PushData();
+                    adcPushData.ADC_Index = adcStatus.ADC_Index;
+                    adcPushData.ADC_DownloadedPath = HttpContext.Current.Server.MapPath(downloadedFilePath);
+                    adcPushData.ADC_ExtractedPath = extractedFilePath;
+                    adcManager.UpdateCurrentProcessInfo(adcPushData);
+
                     adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_DEPLOY_FILE_IS_READY;
                     adcManager.UpdateCurrentProcessStatus(adcStatus);
                 }

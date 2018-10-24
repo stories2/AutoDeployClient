@@ -78,5 +78,29 @@ namespace AutoDeployClient.Utils
                 }
             }
         }
+
+        public void UpdateCurrentProcessInfo(ADC_PushData adcPushData)
+        {
+            using (AutoDeployClientEntities context = new AutoDeployClientEntities())
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    ADC_PushData selectedADCPushData = context.ADC_PushData.Where(selectedADCPushDataItem => selectedADCPushDataItem.ADC_Index == adcPushData.ADC_Index).FirstOrDefault();
+                    selectedADCPushData.ADC_DownloadedPath = adcPushData.ADC_DownloadedPath;
+                    selectedADCPushData.ADC_ExtractedPath = adcPushData.ADC_ExtractedPath;
+
+                    context.SaveChanges();
+                    tran.Commit();
+
+                    LogManager.PrintLogMessage("ADCManager", "UpdateCurrentProcessInfo", "process info updated, downloaded path: " + selectedADCPushData.ADC_DownloadedPath + " extracted path: " + selectedADCPushData.ADC_ExtractedPath, DefineManager.LOG_LEVEL_DEBUG);
+                }
+                catch (Exception err)
+                {
+                    tran.Rollback();
+                    LogManager.PrintLogMessage("ADCManager", "UpdateCurrentProcessInfo", "cannot update process status: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                }
+            }
+        }
     }
 }
