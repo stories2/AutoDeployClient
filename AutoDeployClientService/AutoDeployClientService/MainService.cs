@@ -73,7 +73,14 @@ namespace AutoDeployClientService
         private void TimerCallback(object sender, ElapsedEventArgs eventObj)
         {
             //logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
-            RunAutoDeployRoutine();
+            try
+            {
+                RunAutoDeployRoutine();
+            }
+            catch(Exception err)
+            {
+                logManager.PrintLogMessage("MainService", "TimerCallback", "some process has error: " + err.Message, EventLogEntryType.Error);
+            }
         }
 
         private void RunAutoDeployRoutine()
