@@ -24,7 +24,7 @@
           <Key>
             <PropertyRef Name="ADC_Index" />
           </Key>
-          <Property Name="ADC_Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADC_Index" Type="int" Nullable="false" />
           <Property Name="ADC_ProcessStatus" Type="int" Nullable="false" />
           <Property Name="ADC_ProcessMsg" Type="text" />
           <Property Name="ADC_UpdateDateTime" Type="datetime" Nullable="false" />
@@ -110,7 +110,7 @@
           <Key>
             <PropertyRef Name="ADC_Index" />
           </Key>
-          <Property Name="ADC_Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADC_Index" Type="Int32" Nullable="false" />
           <Property Name="ADC_ProcessStatus" Type="Int32" Nullable="false" />
           <Property Name="ADC_ProcessMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ADC_UpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
