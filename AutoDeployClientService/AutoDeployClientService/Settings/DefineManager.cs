@@ -20,7 +20,9 @@ namespace AutoDeployClientService.Settings
 
             ORDER_TYPE_NORMAL_DEPLOY = 1,
 
-            STATUS_CODE_DEPLOY_FILE_IS_READY = 202;
+            STATUS_CODE_DEPLOY_FILE_IS_READY = 202,
+
+            ZERO = 0;
 
         public static readonly String
             LOG_LEVEL_VERBOSE_STR = "V",

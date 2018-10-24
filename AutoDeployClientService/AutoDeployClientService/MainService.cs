@@ -17,6 +17,7 @@ namespace AutoDeployClientService
     {
         private Timer refreshTimer;
         private LogManager logManager;
+        private ADCManager adcManager;
 
         public MainService()
         {
@@ -41,7 +42,10 @@ namespace AutoDeployClientService
             this.EventLog.Log = "Application";
 
             logManager = new LogManager();
+            adcManager = new ADCManager();
+
             logManager.eventLog = this.EventLog;
+            adcManager.logManager = logManager;
         }
 
         protected override void OnStart(string[] args)
@@ -64,11 +68,15 @@ namespace AutoDeployClientService
         private void TimerCallback(object sender, ElapsedEventArgs eventObj)
         {
             //logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
-            RunDeployRoutine();
+            RunAutoDeployRoutine();
         }
 
-        private void RunDeployRoutine()
+        private void RunAutoDeployRoutine()
         {
+            AutoDeployRoutineManager autoDeployRoutineManager = new AutoDeployRoutineManager();
+            autoDeployRoutineManager.adcManager = adcManager;
+            autoDeployRoutineManager.logManager = logManager;
+            autoDeployRoutineManager.StartRoutine();
         }
 
         protected override void OnStop()
