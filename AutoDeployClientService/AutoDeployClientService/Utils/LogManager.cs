@@ -10,34 +10,38 @@ namespace AutoDeployClientService.Utils
 {
     internal class LogManager
     {
-        public static void PrintLogMessage(String className = "LogManager", String methodName = "PrintLogMessage", String msg = "Empty log msg", int logLevel = DefineManager.LOG_LEVEL_WARN)
+        public EventLog eventLog { get; set; }
+
+        public void PrintLogMessage(String className = "LogManager", String methodName = "PrintLogMessage", String msg = "Empty log msg", EventLogEntryType eventLogEntryType = EventLogEntryType.Warning)
         {
-            String logMsg = "{0} {1} [{2}] <{3}> ({4})";
+            String logMsgFormat = "{0} {1} [{2}] <{3}> ({4})", logMsg = "";
             String logLevelStr = DefineManager.LOG_LEVEL_WARN_STR;
             DateTime currentDateTime = DateTime.Now;
-            switch (logLevel)
+            switch (eventLogEntryType)
             {
-                case DefineManager.LOG_LEVEL_VERBOSE:
-                    logLevelStr = DefineManager.LOG_LEVEL_VERBOSE_STR;
-                    break;
-
-                case DefineManager.LOG_LEVEL_INFO:
+                case EventLogEntryType.Information:
                     logLevelStr = DefineManager.LOG_LEVEL_INFO_STR;
                     break;
 
-                case DefineManager.LOG_LEVEL_DEBUG:
-                    logLevelStr = DefineManager.LOG_LEVEL_DEBUG_STR;
-                    break;
-
-                case DefineManager.LOG_LEVEL_WARN:
+                case EventLogEntryType.Warning:
                     logLevelStr = DefineManager.LOG_LEVEL_WARN_STR;
                     break;
 
-                case DefineManager.LOG_LEVEL_ERROR:
+                case EventLogEntryType.Error:
                     logLevelStr = DefineManager.LOG_LEVEL_ERROR_STR;
                     break;
+
+                case EventLogEntryType.SuccessAudit:
+                    logLevelStr = DefineManager.LOG_LEVEL_SUCCESS_STR;
+                    break;
+
+                case EventLogEntryType.FailureAudit:
+                    logLevelStr = DefineManager.LOG_LEVEL_FAIL_STR;
+                    break;
             }
-            Debug.WriteLine(logMsg, currentDateTime.ToString(), logLevelStr, className, methodName, msg);
+
+            logMsg = String.Format(logMsgFormat, currentDateTime.ToString(), logLevelStr, className, methodName, msg);
+            this.eventLog.WriteEntry(logMsg, eventLogEntryType);
         }
     }
 }

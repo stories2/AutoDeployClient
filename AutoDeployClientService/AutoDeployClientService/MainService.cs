@@ -16,15 +16,37 @@ namespace AutoDeployClientService
     partial class MainService : ServiceBase
     {
         private Timer refreshTimer;
+        private LogManager logManager;
 
         public MainService()
         {
             InitializeComponent();
+
+            //Setup Service
+            this.ServiceName = "ADC Service";
+            this.CanStop = true;
+            this.CanPauseAndContinue = true;
+
+            //Setup logging
+            this.AutoLog = false;
+
+            ((ISupportInitialize)this.EventLog).BeginInit();
+            if (!EventLog.SourceExists(this.ServiceName))
+            {
+                EventLog.CreateEventSource(this.ServiceName, "Application");
+            }
+            ((ISupportInitialize)this.EventLog).EndInit();
+
+            this.EventLog.Source = this.ServiceName;
+            this.EventLog.Log = "Application";
+
+            logManager = new LogManager();
+            logManager.eventLog = this.EventLog;
         }
 
         protected override void OnStart(string[] args)
         {
-            LogManager.PrintLogMessage("MainService", "OnStart", "init", DefineManager.LOG_LEVEL_INFO);
+            logManager.PrintLogMessage("MainService", "OnStart", "init", EventLogEntryType.Information);
             // TODO: 여기에 서비스를 시작하는 코드를 추가합니다.
             SetTimer();
         }
@@ -36,12 +58,12 @@ namespace AutoDeployClientService
             refreshTimer.Elapsed += TimerCallback;
             refreshTimer.Start();
 
-            LogManager.PrintLogMessage("MainService", "SetTimer", "timer started, it will refresh in every " + refreshTimer.Interval + " sec", DefineManager.LOG_LEVEL_DEBUG);
+            logManager.PrintLogMessage("MainService", "SetTimer", "timer started, it will refresh in every " + refreshTimer.Interval + " sec", EventLogEntryType.Information);
         }
 
         private void TimerCallback(object sender, ElapsedEventArgs eventObj)
         {
-            LogManager.PrintLogMessage("MainService", "TimerCallback", "hello", DefineManager.LOG_LEVEL_INFO);
+            logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
         }
 
         protected override void OnStop()
