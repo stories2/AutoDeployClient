@@ -16,7 +16,11 @@ namespace AutoDeployClientService.Settings
             LOG_LEVEL_ERROR = 4,
 
             REFRESH_TIME_10_SEC = 10 * 1000,
-            REFRESH_TIME_5_MIN = 5 * 60 * 1000;
+            REFRESH_TIME_5_MIN = 5 * 60 * 1000,
+
+            ORDER_TYPE_NORMAL_DEPLOY = 1,
+
+            STATUS_CODE_DEPLOY_FILE_IS_READY = 202;
 
         public static readonly String
             LOG_LEVEL_VERBOSE_STR = "V",
