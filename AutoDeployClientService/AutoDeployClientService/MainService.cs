@@ -41,6 +41,11 @@ namespace AutoDeployClientService
             this.EventLog.Source = this.ServiceName;
             this.EventLog.Log = "Application";
 
+            OnInit();
+        }
+
+        private void OnInit()
+        {
             logManager = new LogManager();
             adcManager = new ADCManager();
 
