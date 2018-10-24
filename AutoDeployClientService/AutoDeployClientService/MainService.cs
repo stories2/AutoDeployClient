@@ -63,7 +63,12 @@ namespace AutoDeployClientService
 
         private void TimerCallback(object sender, ElapsedEventArgs eventObj)
         {
-            logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
+            //logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
+            RunDeployRoutine();
+        }
+
+        private void RunDeployRoutine()
+        {
         }
 
         protected override void OnStop()
