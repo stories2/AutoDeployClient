@@ -49,6 +49,7 @@ namespace AutoDeployClientService.Utils
                 {
                     adcStatus.ADC_ProcessStatus = DefineManager.STATUS_CODE_PUBLISH_ERROR;
                     adcStatus.ADC_ProcessMsg = err.Message;
+                    adcManager.UpdateCurrentProcessStatus(adcStatus);
                 }
                 logManager.PrintLogMessage("AutoDeployRoutineManager", "RunDeployProcess", "cannot deploy current process #" + adcPushData.ADC_Index, System.Diagnostics.EventLogEntryType.Error);
             }
