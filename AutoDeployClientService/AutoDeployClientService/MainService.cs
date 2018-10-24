@@ -67,7 +67,7 @@ namespace AutoDeployClientService
             refreshTimer.Elapsed += TimerCallback;
             refreshTimer.Start();
 
-            logManager.PrintLogMessage("MainService", "SetTimer", "timer started, it will refresh in every " + refreshTimer.Interval + " sec", EventLogEntryType.Information);
+            logManager.PrintLogMessage("MainService", "SetTimer", "timer started, it will refresh in every " + refreshTimer.Interval + " mil", EventLogEntryType.Information);
         }
 
         private void TimerCallback(object sender, ElapsedEventArgs eventObj)

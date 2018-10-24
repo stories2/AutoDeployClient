@@ -21,6 +21,7 @@ namespace AutoDeployClientService
 
         private void ServiceInstallerAfterInstall(object sender, InstallEventArgs eventData)
         {
+            serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             using (ServiceController serviceController = new ServiceController(serviceInstaller1.ServiceName))
             {
                 serviceController.Start();
