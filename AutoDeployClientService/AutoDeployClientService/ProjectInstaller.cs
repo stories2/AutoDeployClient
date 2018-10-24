@@ -16,12 +16,15 @@ namespace AutoDeployClientService
         {
             InitializeComponent();
 
+            serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            //Installers.Add(serviceInstaller1);
+
             this.AfterInstall += new InstallEventHandler(ServiceInstallerAfterInstall);
         }
 
         private void ServiceInstallerAfterInstall(object sender, InstallEventArgs eventData)
         {
-            serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            
             using (ServiceController serviceController = new ServiceController(serviceInstaller1.ServiceName))
             {
                 serviceController.Start();
