@@ -31,6 +31,11 @@ namespace AutoDeployClient.Utils
                         success = true;
                         break;
 
+                    case DefineManager.EXECUTE_ORDER_GET_STATUS:
+                        RutineGetStatus();
+                        success = true;
+                        break;
+
                     default:
                         success = false;
                         break;
@@ -44,6 +49,10 @@ namespace AutoDeployClient.Utils
             }
 
             return success;
+        }
+
+        private void RutineGetStatus()
+        {
         }
 
         private void RutineAutoUpdate()

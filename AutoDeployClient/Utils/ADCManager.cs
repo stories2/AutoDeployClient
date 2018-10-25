@@ -1,5 +1,6 @@
 ﻿using AutoDeployClient.Database;
 using AutoDeployClient.Models;
+using AutoDeployClient.Models.ADCManager;
 using AutoDeployClient.Settings;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,47 @@ namespace AutoDeployClient.Utils
                     LogManager.PrintLogMessage("ADCManager", "UpdateCurrentProcessInfo", "cannot update process status: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
                 }
             }
+        }
+
+        public List<ADCStatusReportModel> GetLatestADCStatusList(int limit = DefineManager.DEFAULT_ADC_STATUS_REPORT_RETURN_LIMIT)
+        {
+            List<ADCStatusReportModel> adcStatusReportList = null;
+
+            using (AutoDeployClientEntities context = new AutoDeployClientEntities())
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    List<ADC_PushData> adcPushDataList = context.ADC_PushData.Where(selectedPushDataItem => selectedPushDataItem.ADC_OrderType != DefineManager.EXECUTE_ORDER_GET_STATUS).ToList();
+                    List<ADC_Status> adcStatusList = context.ADC_Status.ToList();
+
+                    adcStatusReportList = adcPushDataList.Select(pushDataItem => new ADCStatusReportModel
+                    {
+                        adcIndex = pushDataItem.ADC_Index,
+                        adcOrderType = pushDataItem.ADC_OrderType,
+                        adcDownloadUrl = pushDataItem.ADC_DownloadUrl,
+                        adcDownloadedPath = pushDataItem.ADC_DownloadedPath,
+                        adcExtractedPath = pushDataItem.ADC_ExtractedPath,
+                        adcUpdateTargetPath = pushDataItem.ADC_UpdateTargetPath,
+                        adcPushMsg = pushDataItem.ADC_PushMsg,
+                        adcVersion = pushDataItem.ADC_Version,
+                        adcCallbackUrl = pushDataItem.ADC_CallbackUrl,
+                        adcFileType = pushDataItem.ADC_FileType,
+
+                        adcProcessStatus = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_ProcessStatus : DefineManager.NOT_AVAILABLE,
+                        adcProcessMsg = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_ProcessMsg : null,
+                        adcUpdateDateTime = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_UpdateDateTime : DateTime.Now
+                    }).OrderByDescending(orderPushDataItem => orderPushDataItem.adcIndex).Take(limit).ToList();
+
+                    LogManager.PrintLogMessage("ADCManager", "GetLatestADCStatusList", "", DefineManager.LOG_LEVEL_INFO);
+                }
+                catch (Exception err)
+                {
+                    tran.Rollback();
+                    LogManager.PrintLogMessage("ADCManager", "GetLatestADCStatusList", "cannot get process status: " + err.Message, DefineManager.LOG_LEVEL_ERROR);
+                }
+            }
+            return adcStatusReportList;
         }
     }
 }

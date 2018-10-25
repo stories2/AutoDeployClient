@@ -15,6 +15,7 @@ namespace AutoDeployClient.Settings
             LOG_LEVEL_ERROR = 4,
 
             EXECUTE_ORDER_AUTO_UPDATE = 1,
+            EXECUTE_ORDER_GET_STATUS = 2,
 
             NOT_AVAILABLE = -1,
 
