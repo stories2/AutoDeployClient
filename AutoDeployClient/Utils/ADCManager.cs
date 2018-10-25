@@ -131,7 +131,7 @@ namespace AutoDeployClient.Utils
 
                         adcProcessStatus = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_ProcessStatus : DefineManager.NOT_AVAILABLE,
                         adcProcessMsg = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_ProcessMsg : null,
-                        adcUpdateDateTime = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_UpdateDateTime : DateTime.Now
+                        adcUpdateDateTime = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_UpdateDateTime.ToString() : DateTime.Now.ToString()
                     }).OrderByDescending(orderPushDataItem => orderPushDataItem.adcIndex).Take(limit).ToList();
 
                     LogManager.PrintLogMessage("ADCManager", "GetLatestADCStatusList", "status report size: " + adcStatusReportList.Count, DefineManager.LOG_LEVEL_INFO);

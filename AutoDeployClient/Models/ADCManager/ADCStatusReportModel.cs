@@ -19,6 +19,6 @@ namespace AutoDeployClient.Models.ADCManager
         public String adcFileType { get; set; }
         public int adcProcessStatus { get; set; }
         public String adcProcessMsg { get; set; }
-        public DateTime adcUpdateDateTime { get; set; }
+        public String adcUpdateDateTime { get; set; }
     }
 }
