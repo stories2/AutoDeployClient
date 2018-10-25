@@ -35,7 +35,7 @@ namespace AutoDeployClientService.Settings
             LOG_LEVEL_ERROR_STR = "E",
             LOG_LEVEL_SUCCESS_STR = "S",
             LOG_LEVEL_FAIL_STR = "F",
-            
-            BUILD_VERSION = "1.0.0";
+
+            BUILD_VERSION = "1.0.1";
     }
 }
