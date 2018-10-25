@@ -25,7 +25,9 @@ namespace AutoDeployClient.Settings
             STATUS_CODE_DEPLOY_FILE_IS_READY = 202,
             STATUS_CODE_DEFAULT = 0,
             STATUS_CODE_ERROR_WHILE_DOWNLOADING_DEPLOY_FILE = 250,
-            STATUS_CODE_ERROR_WHILE_EXTRACTING_DEPLOY_FILE = 251;
+            STATUS_CODE_ERROR_WHILE_EXTRACTING_DEPLOY_FILE = 251,
+
+            DEFAULT_ADC_STATUS_REPORT_RETURN_LIMIT = 5;
 
         public static readonly String
             LOG_LEVEL_VERBOSE_STR = "V",

@@ -1,10 +1,12 @@
 ﻿using AutoDeployClient.Database;
 using AutoDeployClient.Models;
+using AutoDeployClient.Models.ADCManager;
 using AutoDeployClient.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace AutoDeployClient.Utils
 {
@@ -53,6 +55,15 @@ namespace AutoDeployClient.Utils
 
         private void RutineGetStatus()
         {
+            WebManager webManager = new WebManager();
+            List<ADCStatusReportModel> adcStatusReportList = adcManager.GetLatestADCStatusList();
+
+            var jsonSerialiser = new JavaScriptSerializer();
+            var jsonData = jsonSerialiser.Serialize(adcStatusReportList);
+
+            webManager.PostDataToUrl(pushMsgModel.callbackUrl, jsonData);
+
+            LogManager.PrintLogMessage("ExecuteManager", "RutineGetStatus", "done", DefineManager.LOG_LEVEL_INFO);
         }
 
         private void RutineAutoUpdate()

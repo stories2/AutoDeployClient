@@ -134,7 +134,7 @@ namespace AutoDeployClient.Utils
                         adcUpdateDateTime = ADCExtension.IsStatusNotNull(adcStatusList, pushDataItem.ADC_Index) ? ADCExtension.GetStatusItem(adcStatusList, pushDataItem.ADC_Index).ADC_UpdateDateTime : DateTime.Now
                     }).OrderByDescending(orderPushDataItem => orderPushDataItem.adcIndex).Take(limit).ToList();
 
-                    LogManager.PrintLogMessage("ADCManager", "GetLatestADCStatusList", "", DefineManager.LOG_LEVEL_INFO);
+                    LogManager.PrintLogMessage("ADCManager", "GetLatestADCStatusList", "status report size: " + adcStatusReportList.Count, DefineManager.LOG_LEVEL_INFO);
                 }
                 catch (Exception err)
                 {
