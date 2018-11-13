@@ -1,5 +1,5 @@
-﻿using AutoDeployClientService.Settings;
-using AutoDeployClientService.Utils;
+﻿using AutoSecurityInspectClientService.Settings;
+using AutoSecurityInspectClientService.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,11 +8,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AutoDeployClientService
+namespace AutoSecurityInspectClientService
 {
     partial class MainService : ServiceBase
     {
@@ -25,7 +24,7 @@ namespace AutoDeployClientService
             InitializeComponent();
 
             //Setup Service
-            this.ServiceName = "ADC Service";
+            this.ServiceName = DefineManager.APPLICATION_NAME;
             this.CanStop = true;
             this.CanPauseAndContinue = true;
 
@@ -35,12 +34,12 @@ namespace AutoDeployClientService
             ((ISupportInitialize)this.EventLog).BeginInit();
             if (!EventLog.SourceExists(this.ServiceName))
             {
-                EventLog.CreateEventSource(this.ServiceName, "Application");
+                EventLog.CreateEventSource(this.ServiceName, DefineManager.EVENT_LOG_CATEGORY_APPLICATION);
             }
             ((ISupportInitialize)this.EventLog).EndInit();
 
             this.EventLog.Source = this.ServiceName;
-            this.EventLog.Log = "Application";
+            this.EventLog.Log = DefineManager.EVENT_LOG_CATEGORY_APPLICATION;
 
             OnInit();
         }
@@ -60,7 +59,7 @@ namespace AutoDeployClientService
 
                 logManager.PrintLogMessage("MainService", "OnInit", "init ok, build ver: " + DefineManager.BUILD_VERSION, EventLogEntryType.SuccessAudit);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 logManager.PrintLogMessage("MainService", "OnInit", "init failed: " + err.Message, EventLogEntryType.Error);
             }
@@ -68,8 +67,7 @@ namespace AutoDeployClientService
 
         protected override void OnStart(string[] args)
         {
-            logManager.PrintLogMessage("MainService", "OnStart", "init", EventLogEntryType.Information);
-            // TODO: 여기에 서비스를 시작하는 코드를 추가합니다.
+            // TODO: Add code here to start your service.
             SetTimer();
         }
 
@@ -88,25 +86,17 @@ namespace AutoDeployClientService
             //logManager.PrintLogMessage("MainService", "TimerCallback", "hello", EventLogEntryType.Information);
             try
             {
-                RunAutoDeployRoutine();
+                
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 logManager.PrintLogMessage("MainService", "TimerCallback", "some process has error: " + err.Message, EventLogEntryType.Error);
             }
         }
 
-        private void RunAutoDeployRoutine()
-        {
-            AutoDeployRoutineManager autoDeployRoutineManager = new AutoDeployRoutineManager();
-            autoDeployRoutineManager.adcManager = adcManager;
-            autoDeployRoutineManager.logManager = logManager;
-            autoDeployRoutineManager.StartRoutine();
-        }
-
         protected override void OnStop()
         {
-            // TODO: 서비스를 중지하는 데 필요한 작업을 수행하는 코드를 여기에 추가합니다.
+            // TODO: Add code here to perform any tear-down necessary to stop your service.
         }
     }
 }
